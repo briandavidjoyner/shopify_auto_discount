@@ -1,15 +1,37 @@
 (function(){
 
   ////////// Config ////////
-    var $config = {
+  var $config = {
     
     div_element : '<div id="promo_code_bar" style="position:fixed;height:0px;width:100%;z-index:10000;background-color:blue;"></div>',
-    urls_to_exclude : ['/cart']
+    urls_to_exclude : ['1','/cart','/complete','nope']
 
-  }
+  };
 
   ////////// Helper Functions ////////
-  function promo_bar(){
+  function check_url(){
+    var $array = $config.urls_to_exclude,
+        $url = window.location.pathname,
+        $array_length = $array.length;
+    for (i=0;i<$array_length;i++){
+      console.log(i);
+      if ($url == $array[i]){
+        console.log(true);
+        promo_echo_decision(true);
+        return;
+      }
+    }
+    promo_echo_decision(false);
+  }
+
+  function promo_echo_decision(decision){
+    if (!decision){
+      activate_promo_bar();
+      console.log('done');
+    }
+  }
+
+  function activate_promo_bar(){
     jQuery('body').prepend($config.div_element);
     jQuery('#promo_code_bar').animate({height: '+=100px'}, 500, function(){
       jQuery('#sidebar').animate({marginTop:'75px'});
@@ -51,6 +73,7 @@
       read_cookie();
     } else {
       coupon_from_url();
+
     }
   }
   cart_page();
