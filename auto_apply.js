@@ -1,5 +1,22 @@
 (function(){
 
+  ////////// Config ////////
+    var $config = {
+    
+    div_element : '<div id="promo_code_bar" style="position:fixed;height:0px;width:100%;z-index:10000;background-color:blue;"></div>',
+    urls_to_exclude : ['/cart']
+
+  }
+
+  ////////// Helper Functions ////////
+  function promo_bar(){
+    jQuery('body').prepend($config.div_element);
+    jQuery('#promo_code_bar').animate({height: '+=100px'}, 500, function(){
+      jQuery('#sidebar').animate({marginTop:'75px'});
+      jQuery('#content').animate({marginTop:'75px'});
+    });
+  }
+
   function set_cookie ($coupon_code_parem,$expires_parem){
     document.cookie = 'cc=' + $coupon_code_parem + '; expires=' + $expires_parem + ';';
   }
@@ -36,7 +53,6 @@
       coupon_from_url();
     }
   }
-
   cart_page();
   
 })();
