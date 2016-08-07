@@ -3,8 +3,8 @@
   ////////// Config ////////
   var $config = {
     
-    div_element : '<div id="promo_code_bar" style="position:fixed;height:0px;width:100%;z-index:10000;background-color:blue;"></div>',
-    urls_to_exclude : ['1','/cart','/complete','nope']
+    div_element : '<div id="promo_code_bar" style="position:fixed;height:0px;width:100%;background-color:blue;z-index:-1000000000;"></div>',
+    urls_to_exclude : ['1','/cart','/complete','/order']
 
   };
 
@@ -33,10 +33,11 @@
 
   function activate_promo_bar(){
     jQuery('body').prepend($config.div_element);
-    jQuery('#promo_code_bar').animate({height: '+=100px'}, 500, function(){
+    jQuery('#promo_code_bar').animate({height: '+=100px'}, 100, function(){
       jQuery('#sidebar').animate({marginTop:'75px'});
       jQuery('#content').animate({marginTop:'75px'});
     });
+    jQuery('#promo_code_bar').css('z-index',100000);
   }
 
   function set_cookie ($coupon_code_parem,$expires_parem){
@@ -73,16 +74,9 @@
       read_cookie();
     } else {
       coupon_from_url();
-
     }
+    check_url();
   }
   cart_page();
   
 })();
-
-
-
-
-
-
-
